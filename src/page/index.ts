@@ -1,5 +1,10 @@
-import Main from './Main';
+import MainPage from './Main';
+import AuthPage from './Auth';
+import DashboardPage from './Dashboard';
+
 
 export {
-    Main,
+    MainPage,
+    AuthPage,
+    DashboardPage
 }

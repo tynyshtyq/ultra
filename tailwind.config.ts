@@ -7,8 +7,9 @@ const config: Config = {
       Inter: "var(--inter)",
     },
     colors: {
-      main: '#1f1f1f',
-      vista: '#FDE74C',
+      main: 'white',
+      dark: '#37352F',
+      vista: '#9065AF',
       grey: '#3f3f3f'
     },
     extend: {
