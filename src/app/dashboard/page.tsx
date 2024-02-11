@@ -1,11 +1,19 @@
 import { authOptions, database } from '@/entities';
-import { DashboardPage } from '@/page';
+import { DashboardPage, SyncPage } from '@/page';
 import { ROUTES } from '@/shared/constants';
+import { getParam } from '@/shared/modal';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import React from 'react';
+import { ParsedUrlQuery } from 'querystring';
+import React, { FC } from 'react';
 
-const Dashboard = async () => {
+interface PageProps {
+    searchParams: ParsedUrlQuery;
+}
+
+const Dashboard: FC<PageProps> = async ({searchParams}) => {
+
+    const isRefetch = getParam(searchParams.refetch) === '1';
 
     const session = await getServerSession(authOptions);
 
@@ -17,18 +25,22 @@ const Dashboard = async () => {
         }));
     }
 
-    const user = await database.user.findUnique({
-        where: { id: session.user.id },
-        select: { name: true, email: true }
-    });
-
-    if (user) {
-        return (
-            <DashboardPage user={user} />
-        );
+    if (!isRefetch) {
+        const user = await database.user.findUnique({
+            where: { id: session.user.id },
+            select: { name: true, email: true }
+        });
+    
+        if (user) {
+            return (
+                <DashboardPage user={user} />
+            );
+        }
     }
 
-    // return <Sync />
+    
+
+    return <SyncPage />
 
     
 };
