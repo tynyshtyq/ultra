@@ -1,18 +1,53 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
+    fontFamily: {
+      Inter: "var(--inter)",
+    },
+    colors: {
+      main: '#1f1f1f',
+      vista: '#FDE74C',
+      grey: '#3f3f3f'
+    },
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      screens: {
+        phone: { max: "810px" },
+        desktop: { min: "810px" },
       },
+      fontSize: {
+        "MBody-L": ["15px", "120%"],
+        "MHeading-S": ["18px", "120%"],
+        "MHeading-M": ["20px", "120%"],
+        "MHeading-L": ["24px", "120%"],
+        "MTitle-S": ["32px", "120%"],
+        "MTitle-L": ["40px", "120%"],
+
+        "DBody-L": ["16px", "120%"],
+        "DHeading-S": ["18px", "120%"],
+        "DHeading-M": ["24px", "120%"],
+        "DHeading-L": ["28px", "120%"],
+        "DTitle-S": ["40px", "120%"],
+        "DTitle-L": ["48px", "120%"],
+      },
+    },
+    backgroundImage: {
+      "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+      "gradient-conic":
+        "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+    },
+    borderRadius: {
+      none: "0px",
+      s: "4px",
+      m: "8px",
+      full: "50%",
+    },
+    borderWidth: {
+      xs: "0.3px",
+      s: "0.5px",
+      m: "1px",
+      l: "2px",
     },
   },
   plugins: [],
