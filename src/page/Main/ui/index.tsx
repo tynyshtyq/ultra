@@ -25,10 +25,21 @@ const MainPage = () => {
 
     return (
         <main className="flex flex-col min-h-screen bg-main items-center justify-center">
-            <section className='flex flex-col items-start gap-4'>
-                <SVG.Logo className='w-6 h-6'/>
-                <Text.Title type='s' className='font-bold max-w-[600px]'><span className='text-vista'>Ultra.</span> Track your academic performance</Text.Title>
-                <Text.Body>by <a target='_blank' href="https://tynyshtyq.blog/" className='text-vista' style={{opacity: '.7'}}>Dastan Tynyshtyq</a></Text.Body>
+            <section className='flex flex-col items-start gap-4 max-w-[90%]'>
+                <div className='w-full flex gap-2 items-center'>
+                    <SVG.Logo className='w-9 h-9'/>
+                    <Text.Title type='l' className='font-bold max-w-[600px] phone:max-w-[100%] text-vista'>Ultra</Text.Title>
+                </div>
+                
+                <div className='max-w-[40vw] phone:max-w-[100%]'>
+                    <Text.Heading type='l' className='w-full text-vista'>Transform your study experience with our <span className='phone:hidden'>all-in-one</span> platform</Text.Heading>
+                </div>
+                
+                <div className='flex flex-col pl-2 phone:pl-0 gap-2 max-w-[65dvw]'>
+                    <Text.Heading type='s'>- track grades with precision</Text.Heading>
+                    <Text.Heading type='s'>- access ChatGPT 4 on-demand</Text.Heading>
+                    <Text.Heading type='s'>- and connect with study partners effortlessly.</Text.Heading>
+                </div>
                 <Button.Primary onClick={handleDashboard}>
                     {session.status === 'unauthenticated' ? 'Login' : "Dashboard"}
                 </Button.Primary>
