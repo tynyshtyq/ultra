@@ -1,6 +1,7 @@
 'use client';
 
 import { syncRegistrar } from '@/app/actions/syncRegistrar';
+import { ROUTES } from '@/shared/constants';
 import { Button, Input, Loader, SVG, Text } from '@/shared/ui-library';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -29,6 +30,9 @@ const SyncPage = () => {
         setLoading(true);
         if (password) {
             syncRegistrar({password})
+            .then(() =>{
+                router.push(ROUTES.DASHBOARD.get())
+            })
             .catch((err) => {
                 setErrorMessage(String(err.message));
             }).finally(() => {

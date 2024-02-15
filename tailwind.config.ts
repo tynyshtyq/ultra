@@ -11,7 +11,7 @@ const config: Config = {
       dark: '#37352F',
       vista: '#9065AF',
       grey: '#3f3f3f',
-      ghost: '#FBFBFB'
+      ghost: '#FAFAFA'
     },
     extend: {
       screens: {

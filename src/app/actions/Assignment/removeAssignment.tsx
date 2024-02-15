@@ -6,10 +6,10 @@ import { z } from 'zod';
 import { createAction } from '@/utils/action';
 import { authOptions, database } from '@/entities';
 
-export const updateName = createAction({
+export const removeAssignment = createAction({
     schema: z.object({
-        assignmentId: z.string(), 
-        name: z.string() 
+        courseId: z.string(),
+        assignmentId: z.string()
     }),
     ctx: async () => {
 
@@ -25,15 +25,24 @@ export const updateName = createAction({
             session,
         };
     },
-    action: async ({ assignmentId, name }, { session }) => {
+    action: async ({ courseId, assignmentId }, { session }) => {
         
-        await database.assignment.update({
+        const newCourse = await database.course.update({
             where: {
-                id: assignmentId, 
+                id: courseId, 
             },
             data: {
-                name: name 
+                assignments: {
+                    delete: {
+                        id: assignmentId
+                    }
+                }
+            },
+            include: {
+                assignments: true
             }
         });
+
+        return newCourse;
     },
 });

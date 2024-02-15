@@ -17,7 +17,7 @@ const Catalogue = () => {
     const modalRef = useRef<ModalRef>(null);
 
     useEffect(() => {
-        if (context) setCourses(context.courses)
+        if (context) setCourses(context.courses);
     }, [context])
 
     const handleCourseClick = React.useCallback((course: CourseType) => {

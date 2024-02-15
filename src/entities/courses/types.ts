@@ -6,5 +6,5 @@ export type CourseType = {
     name: string; 
     credits: number;
     color: string;
-    assignments?: AssignmentType[];
+    assignments: AssignmentType[];
 }

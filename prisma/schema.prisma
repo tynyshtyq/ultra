@@ -44,9 +44,9 @@ model Course {
 model Assignment {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  points      Int
-  totalPoints Int
-  weight      Int
+  points      String
+  totalPoints String
+  weight      String
   Course      Course? @relation(fields: [courseId], references: [id])
   courseId    String? @db.ObjectId
 }
