@@ -50,6 +50,7 @@ export const syncRegistrar = createAction({
                         name: course.name,
                         abbr: course.abbr,
                         color: course.color,
+                        // @ts-ignore
                         credits: parseInt(course.credits.split(' ')[0]),
                         percent: 100,
                         assignments: {

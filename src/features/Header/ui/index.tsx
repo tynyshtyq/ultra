@@ -1,6 +1,5 @@
 'use client'
 
-import { UserContext } from '@/contexts';
 import { UserType } from '@/entities/user';
 import { LoadingPage } from '@/page';
 import { ROUTES } from '@/shared/constants';

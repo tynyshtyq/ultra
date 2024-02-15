@@ -48,7 +48,7 @@ const CourseInfo = () => {
                 {(percent > 100 || percent < 0) && <Text.Body className='text-[red]'>Please check your input data!</Text.Body>}
             </div>
             
-            <Text.Body>Grade: "{grade}"</Text.Body>
+            <Text.Body>Grade: &apos;{grade}&apos;</Text.Body>
         </div>
     );
 };

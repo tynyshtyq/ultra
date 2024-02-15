@@ -37,7 +37,7 @@ const DashboardPage: FC<Props> = ({user, courses}) => {
                     <Catalogue />
                 :
                     <div className='flex m-auto flex-col items-center justify-center'>
-                        <Text.Body>It looks like you haven't synced with the registrar. <Link className='text-vista underline' href={ROUTES.DASHBOARD.get({query: {refetch: 1}})}>Please synchronize with the registrar</Link>!</Text.Body>
+                        <Text.Body>It looks like you haven&apos;t synced with the registrar. <Link className='text-vista underline' href={ROUTES.DASHBOARD.get({query: {refetch: 1}})}>Please synchronize with the registrar</Link>!</Text.Body>
                     </div>
             }
             
