@@ -5,6 +5,7 @@ import type { ParsedUrlQuery } from 'querystring';
 import { getParam } from '@/shared/modal';
 import { AuthPage } from '@/page';
 import { ROUTES } from '@/shared/constants';
+import { Metadata } from 'next';
 
 interface PageProps {
     searchParams: ParsedUrlQuery;
@@ -17,6 +18,17 @@ const Authorize = ({searchParams}: PageProps) => {
     return (
         <AuthPage callbackUrl={callbackUrl} error={error} />
     );
+};
+
+export const metadata: Metadata = {
+    title: "Authorize",
+    description: "Track your academic performance",
+    authors: [
+      {
+        name: 'Dastan Tynyshtyk',
+        url: 'https://tynyshtyq.blog',
+      },
+    ]
 };
 
 export default Authorize;

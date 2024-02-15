@@ -29,6 +29,28 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model Course {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  abbr        String
+  userId      String       @db.ObjectId
+  credits     Int
+  color       String
+  percent     Int
+  assignments Assignment[]
+  User        User         @relation(fields: [userId], references: [id])
+}
+
+model Assignment {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  points      Int
+  totalPoints Int
+  weight      Int
+  Course      Course? @relation(fields: [courseId], references: [id])
+  courseId    String? @db.ObjectId
+}
+
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
@@ -45,4 +67,5 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Course        Course[]
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { syncRegistrar } from '@/app/actions/syncRegistrar';
 import { Button, Input, Loader, SVG, Text } from '@/shared/ui-library';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -8,6 +9,7 @@ import React, { ChangeEvent, FormEvent, useCallback, useMemo, useState } from 'r
 const SyncPage = () => {
 
     const router = useRouter();
+    const { data: session } = useSession();
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -16,23 +18,32 @@ const SyncPage = () => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
-    const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
-    }, [])
-
-    const handleSubmit = useCallback(async (e: FormEvent) => {
-
-    }, []);
-
-    const { data: session } = useSession();
+    }
 
     const username = React.useMemo(() => session?.user?.email?.split('@')[0] ?? '...', [session]);
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        if (password) {
+            syncRegistrar({password})
+            .catch((err) => {
+                setErrorMessage(String(err.message));
+            }).finally(() => {
+                setLoading(false);
+            });
+        }
+        
+        
+    };
 
     return (
         <main className='flex w-full h-full items-center justify-center'>
             {
                 loading &&
-                    <div className='fixed flex items-center justify-center top-0 left-0 w-full h-full z-4' style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}>
+                    <div className='fixed flex items-center justify-center top-0 left-0 w-full h-full z-[10]' style={{backgroundColor: 'rgba(255, 255, 255, 0.7)'}}>
                         <Loader className='!text-[24px]' />
                     </div>
             }
@@ -42,9 +53,9 @@ const SyncPage = () => {
                 <form onSubmit={handleSubmit} className='max-w-[300px] w-full flex flex-col gap-2 items-center'>
                     <Input.Primary disabled value={username}></Input.Primary>
                     <div className='w-full flex gap-2'>
-                        <Input.Primary type={showPassword ? 'text' : 'password'} placeholder='password' value={password} onChange={handlePasswordChange}></Input.Primary>
-                        <Button.Secondary type='button' onClick={() => setShowPassword(!showPassword)}>
-                            Show
+                        <Input.Primary type={showPassword ? 'text' : 'password'} placeholder='password' value={password} onChange={handlePasswordChange} />
+                        <Button.Secondary type='button' className='!w-[65px]' onClick={() => {setShowPassword(!showPassword); }}>
+                            {showPassword ? 'Hide' : 'Show'}
                         </Button.Secondary>
                         
                     </div>

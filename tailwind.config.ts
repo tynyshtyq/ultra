@@ -10,7 +10,8 @@ const config: Config = {
       main: 'white',
       dark: '#37352F',
       vista: '#9065AF',
-      grey: '#3f3f3f'
+      grey: '#3f3f3f',
+      ghost: '#FBFBFB'
     },
     extend: {
       screens: {
@@ -50,6 +51,9 @@ const config: Config = {
       m: "1px",
       l: "2px",
     },
+    boxShadow: {
+      lg: "rgba(0, 0, 0, 0.16) 0px 1px 4px"
+    }
   },
   plugins: [],
 };

@@ -22,14 +22,12 @@ const AuthPage: FC<Props> = ({callbackUrl, error}) => {
 
     const errorMessage = error ? ERRROS[error] ?? DEFAULT_ERROR : null;
     const [isLoading, setLoading] = useState(false);
-
-    console.log(callbackUrl);
     
 
     const handleGoogleSignIn = () => {
         setLoading(true)
         signIn('google', {
-            callbackUrl
+            callbackUrl,
         })
         .finally(() => {
             setLoading(false);

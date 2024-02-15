@@ -1,13 +1,14 @@
 'use client'
 
 import { ROUTES } from '@/shared/constants';
-import { Button, SVG, Text } from '@/shared/ui-library';
+import { Button, Loader, SVG, Text } from '@/shared/ui-library';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 const MainPage = () => {
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
     const session = useSession();
 
     const handleDashboard = () => {
@@ -17,11 +18,17 @@ const MainPage = () => {
                     callbackUrl: ROUTES.DASHBOARD.get(),
                 },
             }))
+            setLoading(true);
         }
         else {
             router.push(ROUTES.DASHBOARD.get())
+            setLoading(true);
         }
     }
+
+    if (loading) return     <div className='w-full flex h-full items-center justify-center'>
+                                <Loader className='!text-[1.5rem]' />
+                            </div>
 
     return (
         <main className="flex flex-col min-h-screen bg-main items-center justify-center">
