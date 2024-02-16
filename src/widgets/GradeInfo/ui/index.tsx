@@ -32,7 +32,7 @@ const GradeInfo = () => {
                 {error && <Text.Body className='text-[#FF6978]'>Please check your input data!</Text.Body>}
             </div>
             
-            <Text.Body>Grade: "{getGrade(percent)}"</Text.Body>
+            <Text.Body>Grade: &#34;{getGrade(percent)}&#34;</Text.Body>
         </div>
     );
 };

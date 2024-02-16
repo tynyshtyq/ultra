@@ -81,7 +81,8 @@ export const parseScheduleToCourse = (json: string) => {
                 abbr: info.abbr,
                 credits: info.credits,
                 color: COLORS[i],
-                assignments: []
+                assignments: [],
+                percent: 100
             }
             courses[info.name] = course;
             i += 1;
