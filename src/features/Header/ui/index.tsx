@@ -1,9 +1,10 @@
 'use client'
 
+import { useCourses } from '@/contexts';
 import { UserType } from '@/entities/user';
 import { LoadingPage } from '@/page';
 import { ROUTES } from '@/shared/constants';
-import { Button, SVG, Text } from '@/shared/ui-library';
+import { Button, Loader, SVG, Text } from '@/shared/ui-library';
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { FC, useContext, useState } from 'react';
@@ -17,6 +18,8 @@ const Header: FC<Props> = ({user}) => {
     const router = useRouter();
     
     const [loading, setLoading] = useState(false);
+
+    const { status } = useCourses();
 
     const handleSync = () => {
         router.push(ROUTES.DASHBOARD.get({
@@ -41,7 +44,18 @@ const Header: FC<Props> = ({user}) => {
         <nav className='w-full p-4 flex items-center justify-between border-b-m border-vista border-opacity-20 shadow-lg'>
             <div className='w-max flex items-center gap-2'>
                 <SVG.Logo className='w-5 h-5 cursor-pointer' onClick={handleMainPage}/>
-                <Text.Body>{user?.name}</Text.Body>
+                <div className='flex items-center gap-4'>
+                    <Text.Body className='phone:hidden'>{user?.name}</Text.Body>
+                    {
+                        !status && 
+                        <div className='flex items-center gap-4'>
+                            <Text.Body className='text-[14px]'>•</Text.Body>
+                            <Text.Body className='text-[14px]'>saving</Text.Body>
+                            <Loader className='text-[10px]'/>
+                        </div>
+                    }
+                </div>
+                
             </div>
             <div className='flex w-max items-center gap-2'>
                 <Button.Secondary onClick={handleSync}>Sync with registrar</Button.Secondary>

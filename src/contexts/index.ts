@@ -1,14 +1,9 @@
 'use client'
 
-import CourseContext from './course';
-import { CourseContextType } from './course/index';
-import { CourseProvider } from './course/provider';
+import { CoursesProvider } from './courses/coursesContext';
+import useCourses from './courses/useCourses';
 
 export {
-    CourseContext,
-    CourseProvider,
-}
-
-export type {
-    CourseContextType,
+    CoursesProvider,
+    useCourses
 }

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { CourseProvider } from "@/contexts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <CourseProvider>
-            <body className={`bg-main ${inter.className}`}>{children}</body>
-        </CourseProvider>
+          <body className={`bg-main ${inter.className}`}>{children}</body>
       </Providers>
     </html>
   );

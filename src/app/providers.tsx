@@ -1,5 +1,6 @@
 'use client';
 
+import { CoursesProvider } from '@/contexts';
 import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 
@@ -10,7 +11,9 @@ export const Providers: React.FC<PropsWithChildren> = ({ children }) => {
 
     return (
         <SessionProvider>
-            {children}
+            <CoursesProvider>
+                {children}
+            </CoursesProvider>
         </SessionProvider>
     );
 };

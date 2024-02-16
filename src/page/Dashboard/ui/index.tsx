@@ -1,15 +1,14 @@
 'use client'
 
-import { CourseContext } from '@/contexts';
+import { useCourses } from '@/contexts';
 import { CourseType } from '@/entities/courses';
 import { UserType } from '@/entities/user';
 import { Header } from '@/features';
 import { ROUTES } from '@/shared/constants';
-import { Button, Loader, SVG, Text } from '@/shared/ui-library';
-import { Catalogue } from '@/widgets';
-import { useSession } from 'next-auth/react';
+import { Text } from '@/shared/ui-library';
+import { Catalogue, GradeInfo } from '@/widgets';
 import Link from 'next/link';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 
 interface Props {
     user: UserType;
@@ -18,14 +17,11 @@ interface Props {
 
 const DashboardPage: FC<Props> = ({user, courses}) => {
 
-    const context = useContext(CourseContext);
-    
-    
+    const {setCourses} = useCourses();
+
     useEffect(() => {
-        if (context) {
-            context.setCourses(courses);
-        }
-    }, [])
+        setCourses(courses)
+    }, [courses])
     
     
     return (
@@ -34,13 +30,17 @@ const DashboardPage: FC<Props> = ({user, courses}) => {
 
             {
                 courses.length > 0 ?
-                    <Catalogue />
+                    <>
+                        <GradeInfo />
+                        <Catalogue />
+                    </>
+                    
                 :
                     <div className='flex m-auto flex-col items-center justify-center'>
                         <Text.Body>It looks like you haven&apos;t synced with the registrar. <Link className='text-vista underline' href={ROUTES.DASHBOARD.get({query: {refetch: 1}})}>Please synchronize with the registrar</Link>!</Text.Body>
                     </div>
             }
-            
+            <Text.Body className='phone:w-[calc(100%-2rem)] text-center !text-[14px] opacity-[0.5] mt-auto mx-auto mb-4'>If you encounter an error or want to suggest something - write to <Link target='_blank' href={'https://t.me/dastan_tynyshtyk'} className='text-vista'>@dastan_tynyshtyk</Link> 😊 </Text.Body>
         </main>
     );
 };

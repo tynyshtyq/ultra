@@ -4,6 +4,7 @@ export type AssignmentType = {
     points: string;
     totalPoints: string;
     weight: string;
+    courseId?: string;
 }
 
 export interface AssignmentUpdate {

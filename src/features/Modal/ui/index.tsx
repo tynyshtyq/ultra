@@ -1,17 +1,19 @@
 'use client'
 
-import React, { FC, HTMLProps, forwardRef, useImperativeHandle, useState } from 'react';
+import React, { HTMLProps, forwardRef, useImperativeHandle, useState } from 'react';
 import { ModalRef } from '../lib/config';
 import { ModalContext } from '../lib/context';
-import { CourseType } from '@/entities/courses';
-import { Text } from '@/shared/ui-library';
 import { CourseModal } from '@/features';
+import { useCourses } from '@/contexts';
+import { update } from '@/app/actions/Courses/update';
 
 interface Props extends HTMLProps<HTMLDivElement> {
+    
 }
 
 const Modal = forwardRef<ModalRef, Props>(({...props}, ref) => {
 
+    const { selectedCourse, status, saved } = useCourses();
     useImperativeHandle(ref, () => ({
         open,
         close,
@@ -22,6 +24,12 @@ const Modal = forwardRef<ModalRef, Props>(({...props}, ref) => {
 
     const open = () => setIsOpen(true);
     const close = () => {
+        if (!status && selectedCourse && selectedCourse.id && selectedCourse.assignments) {
+            update({courseId: selectedCourse.id, updates: {percent: selectedCourse.percent, assignments: selectedCourse.assignments}})
+            .then(() => {
+                saved(true)
+            })
+        }
         setIsOpen(false);
     };
 
@@ -33,7 +41,7 @@ const Modal = forwardRef<ModalRef, Props>(({...props}, ref) => {
             {
                 isOpen &&
                 <div 
-                    className={`fixed w-full h-full top-0 left-0 items-center justify-center flex`} 
+                    className={`fixed w-full h-full top-0 left-0 items-center justify-center flex z-[50]`} 
                     style={{backgroundColor: 'rgba(0, 0, 0, .5)'}} 
                     onClick={overlayClick}
                     {...props}

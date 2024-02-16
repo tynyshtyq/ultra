@@ -34,8 +34,8 @@ export const createAssignment = createAction({
                 assignments: {
                     create: {
                         name: 'New Assignment',
-                        points: '15',
-                        totalPoints: '15',
+                        points: '0',
+                        totalPoints: '0',
                         weight: '0'
                     }
                 }
