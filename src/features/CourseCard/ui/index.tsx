@@ -1,6 +1,8 @@
 'use client'
 
 import { CourseType } from '@/entities/courses';
+import getGrade from '@/features/CourseInfo/modal';
+import getGradePoints from '@/features/CourseInfo/modal/getGradePoints';
 import { Text } from '@/shared/ui-library';
 import React, { FC, HTMLAttributes, useState } from 'react';
 
@@ -25,6 +27,11 @@ const CourseCard: FC<Props> = ({ data, className, ...props }) => {
                     <Text.Body>•</Text.Body>
                     <Text.Body>{data.credits} ETC credits</Text.Body>
                 </div>
+                <div className='flex flex-col gap-2'>
+                    <Text.Body>Grade: {getGrade(data.percent)}</Text.Body>
+                </div>
+                
+                
             </div>
         </>
     );

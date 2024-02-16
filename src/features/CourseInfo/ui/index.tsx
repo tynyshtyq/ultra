@@ -3,6 +3,7 @@ import { Loader, SVG, Text } from '@/shared/ui-library';
 import React, { FC, useState } from 'react';
 import getGrade from '../modal';
 import { useCourses } from '@/contexts';
+import getGradePoints from '../modal/getGradePoints';
 
 interface Props {
     error: string | null;
@@ -30,8 +31,9 @@ const CourseInfo: FC<Props> = ({error}) => {
                 <Text.Body>Percent: {(selectedCourse.percent).toFixed(1)}%</Text.Body>
                 {selectedCourse.percent > 100 && <Text.Body className='text-[#FF6978]'>{error ? error : 'Please check your input data!'}</Text.Body>}
             </div>
+            <Text.Body>Grade: &apos;{getGradePoints(selectedCourse.percent)}&apos;</Text.Body>
+            <Text.Body>Letter: &apos;{getGrade(selectedCourse.percent)}&apos;</Text.Body>
             
-            <Text.Body>Grade: &apos;{getGrade(selectedCourse.percent)}&apos;</Text.Body>
         </div>
     );
 };

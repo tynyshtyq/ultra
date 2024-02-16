@@ -95,16 +95,10 @@ export const CoursesProvider: React.FC<{ children: ReactNode }> = ({ children })
     let percent = 0;
     if (assignments) {
       assignments.forEach((assignment) => {
-        const add = (parseFloat(assignment.points) / parseFloat(assignment.totalPoints) || 1) * parseFloat(assignment.weight);
+        const add = (parseFloat(assignment.points) / (parseFloat(assignment.totalPoints) || 1)) * parseFloat(assignment.weight);
         
         percent += add;
       })
-      
-      let totalWeight = assignments.reduce((acc, assignment) => acc + parseFloat(assignment.weight), 0);
-      const remainingWeight = Math.max(0, 100 - totalWeight);
-      if (remainingWeight > 0) {
-          percent += remainingWeight
-      }
 
     }
 
