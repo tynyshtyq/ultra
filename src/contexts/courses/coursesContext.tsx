@@ -8,7 +8,7 @@ type CoursesState = {
   courses: CourseType[];
   status: boolean;
   error: string | null;
-  setError: (error: string) => void;
+  setError: (error: string | null) => void;
   saved: (status: boolean) => void;
   selectedCourse: CourseType | null;
   selectCourse: (course: CourseType) => void;
@@ -75,7 +75,7 @@ export const CoursesProvider: React.FC<{ children: ReactNode }> = ({ children })
     dispatch({type: "SAVED", payload: status})
   }
 
-  const setError = (error: string) => {
+  const setError = (error: string | null) => {
     dispatch({type: "ERROR_OCCURED", payload: error})
   }
 
@@ -109,6 +109,7 @@ export const CoursesProvider: React.FC<{ children: ReactNode }> = ({ children })
     }
 
     if (percent > 100) setError("Please check your input data");
+    else setError(null)
     return percent;
   }
 

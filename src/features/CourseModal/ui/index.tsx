@@ -52,7 +52,7 @@ const CourseModal: FC<Props> = ({onClose}) => {
             }
 
             <div className='w-full flex items-center pb-4 justify-between border-b-m border-vista border-opacity-30'>
-                <Text.Heading type='m'>{selectedCourse.name} • {(selectedCourse.abbr).toLowerCase()}</Text.Heading>
+                <Text.Heading type='m'>{selectedCourse.name} <span className='phone:hidden'>• {(selectedCourse.abbr).toLowerCase()}</span></Text.Heading>
                 <SVG.Cross onClick={onClose} className='text-[black] w-6 h-6 cursor-pointer' />
             </div>
 

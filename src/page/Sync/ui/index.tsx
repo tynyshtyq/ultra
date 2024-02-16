@@ -1,6 +1,7 @@
 'use client';
 
 import { syncRegistrar } from '@/app/actions/syncRegistrar';
+import { Header } from '@/features';
 import { ROUTES } from '@/shared/constants';
 import { Button, Input, Loader, SVG, Text } from '@/shared/ui-library';
 import { useSession } from 'next-auth/react';
@@ -43,15 +44,20 @@ const SyncPage = () => {
         
     };
 
+    const handleMainPage = React.useCallback(() => {
+        router.push(ROUTES.HOME.get());
+    }, [])
+
     return (
-        <main className='flex w-full h-full items-center justify-center'>
+        <main className='flex w-full h-full flex-col'>
             {
                 loading &&
                     <div className='fixed flex items-center justify-center top-0 left-0 w-full h-full z-[10]' style={{backgroundColor: 'rgba(255, 255, 255, 0.7)'}}>
                         <Loader className='!text-[24px]' />
                     </div>
             }
-            <div className='flex flex-col items-start gap-6'>
+            <div className='flex flex-col items-start gap-6 m-auto'>
+                <SVG.Logo className='w-6 h-6' onClick={handleMainPage} />
                 <Text.Body type='l' className='font-bold'>Have a good semester!</Text.Body>
                 
                 <form onSubmit={handleSubmit} className='max-w-[300px] w-full flex flex-col gap-2 items-center'>

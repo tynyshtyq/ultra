@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import React, { FC, useContext, useState } from 'react';
 
 interface Props {
-    user: UserType;
+    user: UserType | null;
 }
 
 const Header: FC<Props> = ({user}) => {
