@@ -43,6 +43,7 @@ const Dashboard: FC<PageProps> = async ({searchParams}) => {
             
         })) as unknown as CourseType[];
 
+        
     
         if (user && courses) {
             return (

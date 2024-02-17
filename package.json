@@ -15,7 +15,7 @@
     "fetch-cookie": "^2.2.0",
     "next": "14.1.0",
     "next-auth": "^4.24.5",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.7.0",
     "query-string": "^8.2.0",
     "react": "^18",
     "react-dom": "^18",
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/node-fetch": "^2.6.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/tough-cookie": "^4.0.5",

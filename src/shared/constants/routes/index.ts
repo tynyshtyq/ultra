@@ -51,4 +51,5 @@ export const ROUTES = {
     HOME: new Route('/'),
     AUTH: new Route('/auth'),
     DASHBOARD: new Route('/dashboard'),
+    STUDYBODY: new Route('/studybodies'),
 };

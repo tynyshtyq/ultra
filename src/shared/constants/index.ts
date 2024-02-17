@@ -1,6 +1,8 @@
 import { ROUTES } from "./routes";
+import { SCHOOLS } from './schools';
 
 
 export {
-    ROUTES
+    ROUTES,
+    SCHOOLS
 } 

@@ -6,7 +6,6 @@ import { z } from 'zod';
 import { createAction } from '@/utils/action';
 import { authOptions, database } from '@/entities';
 import { Registrar } from '@/entities/courses/modal';
-import { CourseType } from '@/entities/courses';
 
 export const syncRegistrar = createAction({
     schema: z.object({
