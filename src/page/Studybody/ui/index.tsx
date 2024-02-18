@@ -9,6 +9,7 @@ import { UserType } from '@/entities/user';
 import { Header } from '@/features';
 import { LoadingPage } from '@/page';
 import { Button, Loader, SVG, Text } from '@/shared/ui-library';
+import Link from 'next/link';
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 interface Props {
@@ -25,7 +26,6 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
     const [telegram, setTelegram] = useState(myAccount.telegram)
 
     const [loading, setLoading] = useState(false);
-    console.log(JSON.parse(myAccount.regcourses).data);
     const [courses, setCourses] = useState<{title: string, abbr: string, school: string}[]>(JSON.parse(myAccount.regcourses).data)
     const [query, setQuery] = useState<string>('')
     const [searchResults, setSearchResults] = useState<any[]>();
@@ -128,7 +128,9 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
                             </div>
                             
                     }
+                    <Text.Body className='!text-[12px] opacity-70'>Select courses and stay active. Wait for someone to reach out.</Text.Body>
                     <div className='flex items-center gap-4 pt-2 border-t-m border-vista w-full border-opacity-20'>
+                        
                         <Text.Body>Active: </Text.Body>
                         <button className={`w-[40px] rounded-[20px] border-m ${active ? '' : 'border-opacity-30'} relative h-[22px] border-vista`} onClick={handleStatusUpdate}>
                             <div className={`w-[20px] h-[20px] rounded-full absolute top-0 bg-vista ${active ? 'right-0' : 'opacity-30 left-0'}`} />
@@ -155,7 +157,12 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
                             
                             {
                                 (searchLoading || searchResults) &&
-                                <div className='absolute top-[calc(100%+.5rem)] left-0 w-max p-1 bg-[white] rounded shadow-lg flex flex-col items-start gap-1 max-h-[300px] overflow-y-scroll min-w-[200px] min-h-[100px] z-[14]'>
+                                <div className='absolute top-[calc(100%+.5rem)] left-0 w-max pt-6 p-1 bg-[white] rounded shadow-lg flex flex-col items-start gap-1 max-h-[300px] overflow-y-scroll min-w-[200px] min-h-[100px] z-[14]'>
+                                    {searchResults && searchResults.length > 0 && <div className='absolute top-2 left-3 right-3 flex items-center justify-between'>
+                                        <Text.Body className='!text-[12px]'>Results</Text.Body>
+                                        <SVG.Cross className=' w-3 h-3 cursor-pointer' onClick={() => {setSearchResults(undefined); setQuery('')}} />
+                                    </div>}
+                                    
                                     {
                                         (searchLoading) ? 
                                             <Loader className='m-auto' />
@@ -182,13 +189,59 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
                 </div>
             </div>
 
-            {
-                bodies.map((body, id) => {
-                    return  <div className='' key={id}> 
-                                <Text.Body>{body.name}</Text.Body>
+            <div className='flex flex-col items-center mt-4 gap-2 w-full max-w-[800px] mx-auto'>
+                <Text.Heading type='m' className='w-full mb-4 mt-2'>Study bodies</Text.Heading>
+                {
+                 bodies.length > 0 && courses.length > 0 ? (bodies.map((body, id) => {
+                    const bodyCourses = JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);
+                    const userCourses = courses.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);
+                
+                    const commonCourses = bodyCourses.filter((course: string) => userCourses.includes(course));
+                
+                    if (commonCourses.length > 0) {
+                        return (
+                            <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                                <Text.Body className='!w-max'>{body.name}</Text.Body>
+                                <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                    {JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => {
+                                        if (commonCourses.includes(`${course.abbr}|${course.school}`)) {
+                                            return (
+                                                <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
+                                                    <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+                                </div>
+                                <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${body.telegram.slice(1,)}`}><Button.Primary>Chat</Button.Primary></Link>
                             </div>
-                })
-            }
+                        );
+                    }
+                    return <Text.Body className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
+                }))
+
+                :
+
+                (
+                    bodies.map((body, id) => (
+                        <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                            <Text.Body className='!w-max'>{body.name}</Text.Body>
+                            <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                {JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
+                                    <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
+                                        <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
+                                    </div>
+                                ))}
+                            </div>
+                            <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${body.telegram.slice(1,)}`}><Button.Primary>Chat</Button.Primary></Link>
+                        </div>
+                    ))
+                )
+                   
+                }
+            </div>
+            
 
         </main>
     );

@@ -43,10 +43,12 @@ const Header: FC<Props> = ({user}) => {
 
     const handleStudyBodies = React.useCallback(() => {
         router.push(ROUTES.STUDYBODY.get());
+        setLoading(true)
     }, [])
 
     const handleDashboard = React.useCallback(() => {
         router.push(ROUTES.DASHBOARD.get());
+        setLoading(true)
     }, []) 
 
     if (loading) return <LoadingPage />

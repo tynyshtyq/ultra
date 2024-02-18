@@ -5,6 +5,7 @@ import { CourseType } from '@/entities/courses';
 import { Assignment, CourseInfo } from '@/features';
 import { createAssignment } from '@/app/actions/Assignment/createAssignment';
 import { removeAssignment } from '@/app/actions/Assignment/removeAssignment';
+import { AssignmentType } from '@/entities/assignment';
 
 interface Props {
     onClose: () => void;
@@ -23,7 +24,7 @@ const CourseModal: FC<Props> = ({onClose}) => {
         setLoading(true);
         if (selectedCourse.id) {
             const updatedCourse = (await createAssignment({courseId: selectedCourse?.id})) as CourseType;
-            if (updatedCourse.id) updateCourse(updatedCourse.id, {...updatedCourse}) 
+            if (updatedCourse.id && updatedCourse.assignments) updateCourse(updatedCourse.id, {...selectedCourse, assignments: [...selectedCourse.assignments, updatedCourse.assignments[updatedCourse.assignments.length - 1]]}) 
         }
         setLoading(false);
     }
@@ -32,7 +33,7 @@ const CourseModal: FC<Props> = ({onClose}) => {
         setLoading(true);
         if (selectedCourse.id) {
             const updatedCourse = (await removeAssignment({courseId: selectedCourse?.id, assignmentId})) as CourseType;
-            if (updatedCourse.id) updateCourse(updatedCourse.id, {...updatedCourse}) 
+            if (updatedCourse.id && updatedCourse.assignments) updateCourse(updatedCourse.id, {...selectedCourse, assignments: selectedCourse.assignments.filter((assignment: AssignmentType) => assignment.id !== assignmentId)}) 
         }
 
         setLoading(false)
