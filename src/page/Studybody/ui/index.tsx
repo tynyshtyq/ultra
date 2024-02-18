@@ -218,7 +218,7 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
                             </div>
                         );
                     }
-                    return <Text.Body className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
+                    return <Text.Body key={"HELLO" + id} className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
                 }))
 
                 :
