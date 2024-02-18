@@ -34,7 +34,7 @@ const NewStudyBodyAccountForm = () => {
                 name: session.user.name
             })
             .then((res) => {
-                router.push(ROUTES.STUDYBODY.get())
+                window.location.href = ROUTES.STUDYBODY.get()
             })
             .finally(() => {
                 setLoading(false)

@@ -1,11 +1,13 @@
 'use server';
 
-import PCC from '@/server/PCC';
+import PCC from '@/entities/registrar';
+
+
 
 import { createAction } from '@/utils/action';
 import { z } from 'zod';
 
-export const searchSchema = z.object({
+const searchSchema = z.object({
     query: z.string()
 });
 
@@ -17,8 +19,7 @@ export const search = createAction({
     ctx: () => {},
     action: async (input: SearchSchema) => {
         const { query } = input;
-        // const data = await PCC.search(query);
-        const data = await setTimeout(() => {return []}, 5000)
+        const data = await PCC.search(query);
         return data;
     }
 });

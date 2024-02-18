@@ -32,7 +32,8 @@ export const createBodyAccount = createAction({
                 name: name,
                 telegram: telegram,
                 status: false,
-                userId: session.user.id
+                userId: session.user.id,
+                regcourses: JSON.stringify({data: []})
             }
         });
 

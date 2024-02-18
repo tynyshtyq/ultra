@@ -6,7 +6,7 @@ import { LoadingPage } from '@/page';
 import { ROUTES } from '@/shared/constants';
 import { Button, Loader, SVG, Text } from '@/shared/ui-library';
 import { signOut, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { FC, useContext, useState } from 'react';
 
 interface Props {
@@ -16,6 +16,9 @@ interface Props {
 const Header: FC<Props> = ({user}) => {
 
     const router = useRouter();
+
+    const location = usePathname();
+    console.log(location);
     
     const [loading, setLoading] = useState(false);
 
@@ -42,6 +45,10 @@ const Header: FC<Props> = ({user}) => {
         router.push(ROUTES.STUDYBODY.get());
     }, [])
 
+    const handleDashboard = React.useCallback(() => {
+        router.push(ROUTES.DASHBOARD.get());
+    }, []) 
+
     if (loading) return <LoadingPage />
 
     return (
@@ -62,7 +69,7 @@ const Header: FC<Props> = ({user}) => {
                 
             </div>
             <div className='flex w-max items-center gap-2'>
-                <Button.Secondary onClick={handleStudyBodies}>Study bodies</Button.Secondary>
+                <Button.Secondary onClick={location === '/studybodies' ? handleDashboard : handleStudyBodies}>{location === '/studybodies' ? 'Dashboard' : 'Study bodies'}</Button.Secondary>
                 <Button.Secondary onClick={handleSync}>Sync with registrar</Button.Secondary>
                 <Button.Secondary onClick={handleSignOut}>Log out</Button.Secondary>
             </div>

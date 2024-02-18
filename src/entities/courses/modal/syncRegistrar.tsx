@@ -1,7 +1,7 @@
 import { Agent } from 'https';
 
 import makeFetchCookie from 'fetch-cookie';
-import fetch from 'node-fetch';
+import fetch, {RequestInfo, RequestInit, Response} from 'node-fetch';
 import { CookieJar } from 'tough-cookie';
 import queryString from 'query-string';
 import { scheduleTypeResolver } from './utils/scheduleTypeResolver';
@@ -19,23 +19,17 @@ export class Registrar {
     private BUILD_ID = BUILD_ID;
     private jar: CookieJar;
     private agent: Agent;
-    private fetch: typeof fetch;
-    private request: typeof fetch;
-    
+    // Use the correct type for fetch enhanced with cookies
+    private fetch: (url: RequestInfo, init?: RequestInit) => Promise<Response>;
+    // Correctly type the request method
+    private request: (url: RequestInfo, init?: RequestInit) => Promise<Response>;
 
     constructor() {
         this.jar = new CookieJar();
-
-        this.agent = new Agent({
-            rejectUnauthorized: false,
-        });
-
-        this.jar.setCookie('has_js=1;', this.HOST, {
-            secure: true,
-        });
-
-        this.fetch = makeFetchCookie(fetch, this.jar);
-
+        this.agent = new Agent({ rejectUnauthorized: false });
+        // Cast the enhanced fetch to the correct function type
+        this.fetch = makeFetchCookie(fetch, this.jar) as (url: RequestInfo, init?: RequestInit) => Promise<Response>;
+        // No need to change the implementation, just ensure the type is correct
         this.request = (url, init) => this.fetch(url, { ...init, agent: this.agent });
     }
 

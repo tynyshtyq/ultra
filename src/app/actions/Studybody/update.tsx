@@ -11,7 +11,7 @@ export const update = createAction({
         updates: z.object({
             telegram: z.string().optional(),
             status: z.boolean().optional(),
-            courses: z.array(z.string()).optional(),
+            regcourses: z.any().optional(),
         }).nonstrict(),
     }),
 
@@ -25,19 +25,19 @@ export const update = createAction({
         return { session };
     },
     action: async ({ bodyId, updates }, { session }) => {
+        
 
         const updatedBody = await database.studybody.update({
             where: { id: bodyId },
             data: {
                 ...updates.telegram !== undefined && { telegram: updates.telegram },
                 ...updates.status !== undefined && { status: updates.status },
-                ...updates.courses !== undefined && {
-                    courses: {
-                        ...updates.courses
-                    },
+                ...updates.regcourses !== undefined && {
+                    regcourses: JSON.stringify(updates.regcourses),
                 },
             },
         });
+        
 
         return updatedBody;
     },

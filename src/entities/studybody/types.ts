@@ -3,6 +3,6 @@ export type StudybodyType = {
     name: string;
     userId: string; 
     telegram: string;
-    courses: string[];
+    regcourses: any;
     status: boolean;
 }

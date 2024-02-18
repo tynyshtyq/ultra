@@ -52,13 +52,13 @@ model Assignment {
 }
 
 model Studybody {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String   @unique @db.ObjectId
-  name     String
-  telegram String
-  status   Boolean
-  courses  String[]
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String  @unique @db.ObjectId
+  name       String
+  telegram   String
+  status     Boolean
+  regcourses String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Session {
