@@ -190,7 +190,7 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
             </div>
 
             <div className='flex flex-col items-center mt-4 gap-2 w-full max-w-[800px] mx-auto'>
-                <Text.Heading type='m' className='w-full mb-4 mt-2'>Study bodies</Text.Heading>
+                <Text.Heading type='m' className='w-full mb-4 mt-2'>Study buddies</Text.Heading>
                 {
                  bodies.length > 0 && courses.length > 0 ? (bodies.map((body, id) => {
                     const bodyCourses = JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);

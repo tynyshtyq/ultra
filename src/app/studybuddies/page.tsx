@@ -51,7 +51,7 @@ const Studybuddy = async () => {
 };
 
 export const metadata: Metadata = {
-    title: "Study bodies",
+    title: "Study buddies",
     description: "Track your academic performance",
     authors: [
       {
