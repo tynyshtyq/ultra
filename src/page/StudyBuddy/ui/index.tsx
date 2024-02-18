@@ -19,7 +19,7 @@ interface Props {
 
 const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
 
-    const [bodies, setBodies] = useState<StudybuddyType[]>([]);
+    const [buddies, setBodies] = useState<StudybuddyType[]>([]);
 
     const [account, setAccount] = useState<StudybuddyType>(myAccount);
     const [active, setActive] = useState(myAccount.status);
@@ -142,7 +142,7 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
                     
                     <div className='flex w-full flex-col gap-4'>
                         <div className='flex w-full gap-2 flex-wrap pt-2'>
-                            <Text.Body>Your courses: </Text.Body>
+                            <Text.Body className='!m-0 !p-0'>Your courses: </Text.Body>
                             {
                                 courses.map((course, id) => {
                                     return  <div key={id} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
@@ -195,55 +195,48 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
             <div className='flex flex-col items-center mt-4 gap-2 w-full max-w-[800px] mx-auto'>
                 <Text.Heading type='m' className='w-full mb-4 mt-2'>Study buddies</Text.Heading>
                 {
-                 bodies.length > 0 && courses.length > 0 ? (bodies.map((body, id) => {
-                    const bodyCourses = JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);
-                    const userCourses = courses.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);
-                
-                    const commonCourses = bodyCourses.filter((course: string) => userCourses.includes(course));
-                
-                    if (commonCourses.length > 0) {
-                        return (
-                            <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
-                                <Text.Body className='!w-max'>{body.name}</Text.Body>
-                                <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
-                                    {JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => {
-                                        if (commonCourses.includes(`${course.abbr}|${course.school}`)) {
-                                            return (
+                    courses.length > 0 ? (
+                        buddies.length > 0 ? buddies.map((buddy, id) => {
+                            const buddyCourses = JSON.parse(buddy.regcourses).data.map((course: {title: string, abbr: string, school: string}) => `${course.abbr}|${course.school}`);
+                            const userCourses = courses.map((course) => `${course.abbr}|${course.school}`);
+                            const commonCourses = buddyCourses.filter((course: string) => userCourses.includes(course));
+
+                            if (commonCourses.length > 0) {
+                                return (
+                                    <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                                        <Text.Body className='!w-max'>{buddy.name}</Text.Body>
+                                        <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                            {JSON.parse(buddy.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
                                                 <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
                                                     <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
                                                 </div>
-                                            );
-                                        }
-                                        return null;
-                                    })}
-                                </div>
-                                <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${body.telegram.slice(1,)}`}><Button.Primary>Chat</Button.Primary></Link>
-                            </div>
-                        );
-                    }
-                    if (id === 0) return <Text.Body key={"HELLO" + id} className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
-                }))
-
-                
-
-                :
-
-                (
-                    bodies.map((body, id) => (
-                        <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
-                            <Text.Body className='!w-max'>{body.name}</Text.Body>
-                            <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
-                                {JSON.parse(body.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
-                                    <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
-                                        <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
+                                            ))}
+                                        </div>
+                                        <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${buddy.telegram.slice(1,)}`}>
+                                            <Button.Primary>Chat</Button.Primary>
+                                        </Link>
                                     </div>
-                                ))}
+                                );
+                            }
+                            return null; 
+                        }).filter(Boolean) : <Text.Body className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>
+                    ) : (
+                        buddies.map((buddy, id) => (
+                            <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                                <Text.Body className='!w-max'>{buddy.name}</Text.Body>
+                                <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                    {JSON.parse(buddy.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
+                                        <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
+                                            <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${buddy.telegram.slice(1,)}`}>
+                                    <Button.Primary>Chat</Button.Primary>
+                                </Link>
                             </div>
-                            <Link className='mr-0 ml-auto' target="_blank" href={`https://t.me/${body.telegram.slice(1,)}`}><Button.Primary>Chat</Button.Primary></Link>
-                        </div>
-                    ))
-                )
-                   
+                        ))
+                    )
                 }
             </div>
             
