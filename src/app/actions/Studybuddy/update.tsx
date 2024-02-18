@@ -27,7 +27,7 @@ export const update = createAction({
     action: async ({ bodyId, updates }, { session }) => {
         
 
-        const updatedBody = await database.studybody.update({
+        const updatedBody = await database.studybuddy.update({
             where: { id: bodyId },
             data: {
                 ...updates.telegram !== undefined && { telegram: updates.telegram },

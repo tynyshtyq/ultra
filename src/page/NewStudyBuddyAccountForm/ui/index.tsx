@@ -1,13 +1,13 @@
 'use client'
 
-import { createBodyAccount } from '@/app/actions/Studybody/create';
+import { createBodyAccount } from '@/app/actions/Studybuddy/create';
 import { ROUTES } from '@/shared/constants';
 import { Button, Input, Loader, SVG, Text } from '@/shared/ui-library';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
-const NewStudyBodyAccountForm = () => {
+const NewStudyBuddyAccountForm = () => {
 
     const router = useRouter();
     const { data: session } = useSession();
@@ -34,7 +34,7 @@ const NewStudyBodyAccountForm = () => {
                 name: session.user.name
             })
             .then((res) => {
-                window.location.href = ROUTES.STUDYBODY.get()
+                window.location.href = ROUTES.STUDYBUDDY.get()
             })
             .finally(() => {
                 setLoading(false)
@@ -78,4 +78,4 @@ const NewStudyBodyAccountForm = () => {
     );
 };
 
-export default NewStudyBodyAccountForm;
+export default NewStudyBuddyAccountForm;

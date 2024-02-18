@@ -1,4 +1,4 @@
-export type StudybodyType = {
+export type StudybuddyType = {
     id: string;
     name: string;
     userId: string; 

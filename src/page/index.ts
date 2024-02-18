@@ -3,8 +3,8 @@ import AuthPage from './Auth';
 import DashboardPage from './Dashboard';
 import SyncPage from './Sync';
 import LoadingPage from './Loading'
-import StudyBody from './Studybody';
-import NewStudyBodyAccountForm from './NewStudyBodyAccountForm';
+import NewStudyBuddyAccountForm from './NewStudyBuddyAccountForm';
+import StudyBuddy from './StudyBuddy';
 
 export {
     MainPage,
@@ -12,6 +12,6 @@ export {
     DashboardPage,
     SyncPage,
     LoadingPage,
-    StudyBody,
-    NewStudyBodyAccountForm
+    StudyBuddy,
+    NewStudyBuddyAccountForm
 }

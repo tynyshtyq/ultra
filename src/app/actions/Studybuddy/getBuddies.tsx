@@ -5,9 +5,9 @@ import { z } from 'zod';
 
 import { createAction } from '@/utils/action';
 import { authOptions, database } from '@/entities';
-import { StudybodyType } from '@/entities/studybody';
+import { StudybuddyType } from '@/entities/studybuddy';
 
-export const getBodies = createAction({
+export const getBuddies = createAction({
     schema: z.null(),
     ctx: async () => {
 
@@ -25,11 +25,11 @@ export const getBodies = createAction({
     },
     action: async (_, { session }) => {
         
-        const bodies = (await database.studybody.findMany({
+        const bodies = (await database.studybuddy.findMany({
             where: {
                 status: true
             }
-        })) as StudybodyType[];
+        })) as StudybuddyType[];
 
         return bodies;
     },

@@ -1,10 +1,10 @@
 'use client'
 
 import { search } from '@/app/actions/Courses/search';
-import { getBodies } from '@/app/actions/Studybody/getBodies';
-import { update } from '@/app/actions/Studybody/update';
+import { getBuddies } from '@/app/actions/Studybuddy/getBuddies';
+import { update } from '@/app/actions/Studybuddy/update';
 import { useCourses } from '@/contexts';
-import { StudybodyType } from '@/entities/studybody';
+import { StudybuddyType } from '@/entities/studybuddy';
 import { UserType } from '@/entities/user';
 import { Header } from '@/features';
 import { LoadingPage } from '@/page';
@@ -14,14 +14,14 @@ import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 interface Props {
     user: UserType;
-    myAccount: StudybodyType;
+    myAccount: StudybuddyType;
 }
 
-const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
+const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
 
-    const [bodies, setBodies] = useState<StudybodyType[]>([]);
+    const [bodies, setBodies] = useState<StudybuddyType[]>([]);
 
-    const [account, setAccount] = useState<StudybodyType>(myAccount);
+    const [account, setAccount] = useState<StudybuddyType>(myAccount);
     const [active, setActive] = useState(myAccount.status);
     const [telegram, setTelegram] = useState(myAccount.telegram)
 
@@ -38,9 +38,9 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
 
     useEffect(() => {
         setLoading(true)
-        getBodies(null)
+        getBuddies(null)
         .then((res) => {
-            setBodies(res.filter((body: StudybodyType) => body.userId !== user.id))
+            setBodies(res.filter((body: StudybuddyType) => body.userId !== user.id))
         })
         .finally(() => {
             setLoading(false);
@@ -247,4 +247,4 @@ const StudyBodyPage: FC<Props> = ({ user, myAccount }) => {
     );
 };
 
-export default StudyBodyPage;
+export default StudyBuddyPage;

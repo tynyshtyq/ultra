@@ -27,7 +27,7 @@ export const createBodyAccount = createAction({
     },
     action: async ({ telegram, name }, { session }) => {
         
-        const newAccount = await database.studybody.create({
+        const newAccount = await database.studybuddy.create({
             data: {
                 name: name,
                 telegram: telegram,
