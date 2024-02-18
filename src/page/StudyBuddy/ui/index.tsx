@@ -105,7 +105,10 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
         setActive(!active);
     }
 
+    
+
     if (loading) return <LoadingPage />
+    
     
     return (
         <main className='w-full h-full'> 
@@ -152,7 +155,7 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
                         <div className='flex relative w-full z-[1]'>
                             <div className='flex gap-2 items-center relative'>
                                 <input type="text" className='bg-[none] px-1 max-w-[155px] !text-[14px] outline-0 border-b-m border-vista border-opacity-50 focus:border-opacity-100' value={query} placeholder='Course name or abbr' onChange={handleQueryChange} />
-                                {query && <SVG.Search className='cursor-pointer opacity-100 hover:opacity-50 w-5 h-5 absolute top-[50%] -translate-y-[50%] left-[calc(100%+.5rem)]' onClick={() => handleSearch()} /> }
+                                {query && <button className='cursor-pointer border-m border-vista rounded-m p-1 !text-[12px] hover:bg-vista hover:text-[white] absolute top-[50%] -translate-y-[50%] left-[calc(100%+.5rem)]' onClick={() => handleSearch()}>Search</button> }
                             </div>
                             
                             {
@@ -218,8 +221,10 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
                             </div>
                         );
                     }
-                    return <Text.Body key={"HELLO" + id} className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
+                    if (id === 0) return <Text.Body key={"HELLO" + id} className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>;
                 }))
+
+                
 
                 :
 

@@ -13,6 +13,8 @@ import { getCurrentSemester } from '@/shared/modal/semester/getCurrentSemester';
 
 const getSchool = (school: string) => SCHOOLS[school] || school;
 
+const currentSchools = ['SEDS', 'SSH', 'SMG', 'SoM', 'CPS', 'GSB', 'GSE', 'GSPP'];
+
 const httpsAgent = new Agent({
     rejectUnauthorized: false,
 });
@@ -119,7 +121,7 @@ class PCC {
             title: TITLE,
             credits: CRECTS,
             lastTaught: LASTTAUGHT,
-        }));
+        })).filter((course) => currentSchools.includes(course.school));
 
         const hasNextPage = parseInt(result.total, 10) > page * this.LIMIT;
 
