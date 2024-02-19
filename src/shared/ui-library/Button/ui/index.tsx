@@ -10,7 +10,7 @@ const Primary: FC<Props> = ({className, leftIcon, ...props}) => {
     return (
         <button className={`px-6 phone:px-2 py-2 flex gap-2 items-center justify-center hover:bg-main duration-150 hover:text-vista border-m border-vista rounded-m bg-vista w-max text-main ${className}`} {...props}>
             {leftIcon && <>leftIcon</>}
-            <Text.Body>{props.children}</Text.Body>
+            <Text.Body className='phone:!text-[14px]'>{props.children}</Text.Body>
         </button>
     );
 };

@@ -114,7 +114,7 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
         <main className='w-full h-full'> 
             <Header user={user}/>
 
-            <div className='w-full max-w-[800px] p-4 rounded-m shadow-lg mt-10 mx-auto flex flex-col items-center'>
+            <div className='w-full max-w-[800px] phone:w-[calc(100%-1rem)] p-4 rounded-m shadow-lg mt-10 mx-auto flex flex-col items-center'>
                 <div className='flex w-full items-start flex-col gap-2'>
                     <Text.Heading type='m'>{user.name}</Text.Heading>
                     {
@@ -192,7 +192,7 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
                 </div>
             </div>
 
-            <div className='flex flex-col items-center mt-4 gap-2 w-full max-w-[800px] mx-auto'>
+            <div className='flex flex-col items-center mt-4 gap-2 w-full max-w-[800px] phone:w-[calc(100%-2rem)] mx-auto'>
                 <Text.Heading type='m' className='w-full mb-4 mt-2'>Study buddies</Text.Heading>
                 {
                     courses.length > 0 ? (
@@ -203,9 +203,9 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
 
                             if (commonCourses.length > 0) {
                                 return (
-                                    <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                                    <div className='w-full p-4 flex phone:!flex-col phone:!items-start items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
                                         <Text.Body className='!w-max'>{buddy.name}</Text.Body>
-                                        <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                        <div className='w-max flex gap-2 items-center phone:flex-wrap justify-start overflow-x-scroll'>
                                             {JSON.parse(buddy.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
                                                 <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
                                                     <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>
@@ -222,9 +222,9 @@ const StudyBuddyPage: FC<Props> = ({ user, myAccount }) => {
                         }).filter(Boolean) : <Text.Body className='text-center'>No matching students found. Be the first to connect, and others will follow!</Text.Body>
                     ) : (
                         buddies.map((buddy, id) => (
-                            <div className='w-full p-4 flex items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
+                            <div className='w-full p-4 flex phone:!flex-col phone:!items-start items-center justify-start rounded-m bg-white gap-4 shadow-lg' key={id}>
                                 <Text.Body className='!w-max'>{buddy.name}</Text.Body>
-                                <div className='w-max flex gap-2 items-center justify-start overflow-x-scroll'>
+                                <div className='w-max flex gap-2 items-center justify-start phone:flex-wrap overflow-x-scroll'>
                                     {JSON.parse(buddy.regcourses).data.map((course: {title: string, abbr: string, school: string}, courseID: number) => (
                                         <div key={courseID} className='p-1 rounded-m border-m border-vista flex gap-2 items-center'>
                                             <Text.Body className='!text-[12px]'>{course.abbr} | {course.school}</Text.Body>

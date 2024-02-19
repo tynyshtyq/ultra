@@ -72,7 +72,9 @@ const Header: FC<Props> = ({user}) => {
             </div>
             <div className='flex w-max items-center gap-2'>
                 <Button.Secondary onClick={location === '/studybuddies' ? handleDashboard : handleStudyBuddies}>{location === '/studybuddies' ? 'Dashboard' : 'Study buddies'}</Button.Secondary>
-                <Button.Secondary onClick={handleSync}>Sync with registrar</Button.Secondary>
+                <Button.Secondary onClick={handleSync} className='phone:hidden'>Sync with registrar</Button.Secondary>
+                <Button.Secondary onClick={handleSync} className='desktop:hidden'>Sync</Button.Secondary>
+
                 <Button.Secondary onClick={handleSignOut}>Log out</Button.Secondary>
             </div>
             
