@@ -1,3 +1,3 @@
 Ultra. Track your academic performance
 
-by [dastan tynyshtyq](https://tynyshtyq.blog)
+by [dastan rinatuly](https://tynyshtyq.blog)

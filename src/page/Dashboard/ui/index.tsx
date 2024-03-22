@@ -39,7 +39,7 @@ const DashboardPage: FC<Props> = ({user, courses}) => {
                         <Text.Body className='phone:w-[calc(100%-2rem)] text-center'>It looks like you haven&apos;t synced with the registrar, otherwise, please refresh the page to update the data!</Text.Body>
                     </div>
             }
-            <Text.Body className='phone:w-[calc(100%-2rem)] text-center !text-[14px] opacity-[0.5] mt-auto mx-auto mb-4'>If you encounter an error or want to suggest something - write to <Link target='_blank' href={'https://t.me/dastan_tynyshtyk'} className='text-vista'>@dastan_tynyshtyk</Link> 😊 </Text.Body>
+            <Text.Body className='phone:w-[calc(100%-2rem)] text-center !text-[14px] opacity-[0.5] mt-auto mx-auto mb-4'>If you encounter an error or want to suggest something - write to <Link target='_blank' href={'https://t.me/rinatulyd'} className='text-vista'>@rinatulyd</Link> 😊 </Text.Body>
         </main>
     );
 };

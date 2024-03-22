@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     description: "Track your academic performance",
     authors: [
       {
-        name: 'Dastan Tynyshtyk',
+        name: 'Dastan Rinatuly',
         url: 'https://tynyshtyq.blog',
       },
     ]
